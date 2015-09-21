@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150920211235) do
+ActiveRecord::Schema.define(version: 20150921071620) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "first_name"
@@ -25,9 +25,11 @@ ActiveRecord::Schema.define(version: 20150920211235) do
 
   add_index "clients", ["gym_id"], name: "index_clients_on_gym_id"
 
-  create_table "clients_emails", id: false, force: :cascade do |t|
-    t.integer "client_id", null: false
-    t.integer "email_id",  null: false
+  create_table "clients_emails", force: :cascade do |t|
+    t.integer  "client_id"
+    t.integer  "email_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clients_emails_join_table", force: :cascade do |t|
@@ -60,15 +62,6 @@ ActiveRecord::Schema.define(version: 20150920211235) do
   end
 
   add_index "gyms", ["user_id"], name: "index_gyms_on_user_id"
-
-  create_table "segments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer  "client_id"
-    t.integer  "gym_id"
-  end
-
-  add_index "segments", ["gym_id"], name: "index_segments_on_gym_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
