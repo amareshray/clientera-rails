@@ -1,34 +1,29 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Clients</h1>
+<%= form_for_filterrific @filterrific do |f| %>
+<div>
+    Last visit on/before
+    <%= f.text_field(:with_last_visit_lt, :data => {:provide => "datepicker"}, class: 'js-datepicker') %>
+  </div>
+  <div>
+   <%= link_to(
+     'Reset filters',
+     reset_filterrific_url,
+   ) %>
+ </div>
+ <%= render_filterrific_spinner %>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Last visit</th>
-      <th>Class type</th>
-      <th>Studio</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @clients.each do |client| %>
-      <tr>
-        <td><%= client.first_name %></td>
-        <td><%= client.last_name %></td>
-        <td><%= client.last_visit %></td>
-        <td><%= client.class_type %></td>
-        <td><%= link_to 'Show', client %></td>
-        <td><%= link_to 'Edit', edit_client_path(client) %></td>
-        <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render(
+  partial: 'clients/list',
+  locals: { clients: @clients }
+) %>
 
 <br>
 
 <%= link_to 'New Client', new_client_path %>
+
+<script type='text/javascript'>
+  $('.js-datepicker').datepicker();
+</script>

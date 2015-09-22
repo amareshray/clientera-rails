@@ -1,12 +1,26 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
+  require 'bootstrap-datepicker-rails'
 
   # GET /clients
   # GET /clients.json
   def index
+    @filterrific = initialize_filterrific(
+     Client,
+     params[:filterrific],
+     select_options: {
+     },
+     persistence_id: 'shared_key',
+     default_filter_params: {},
+     available_filters: [],
+   ) or return
     @clients = Client.all
-  end
 
+    respond_to do |format|
+     format.html
+     format.js
+  end
+end
   # GET /clients/1
   # GET /clients/1.json
   def show
