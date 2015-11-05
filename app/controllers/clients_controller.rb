@@ -5,22 +5,9 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @filterrific = initialize_filterrific(
-     Client,
-     params[:filterrific],
-     select_options: {
-     },
-     persistence_id: 'shared_key',
-     default_filter_params: {},
-     available_filters: [],
-   ) or return
-    @clients = Client.all
-
-    respond_to do |format|
-     format.html
-     format.js
+    @clients = Client.search(params[:search]).paginate(:per_page => 25, :page => params[:page])
   end
-end
+
   # GET /clients/1
   # GET /clients/1.json
   def show
@@ -75,6 +62,21 @@ end
     end
   end
 
+  def email
+    @clients = Client.find(params[:client_ids])
+    @email = Email.new
+
+  end
+
+  def submit
+    @clients = Client.find(params[:client_ids])
+    @client = @email.create
+    @clients.each do |client|
+      @email.client_ids << client.id
+  end
+
+    end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
@@ -85,4 +87,5 @@ end
     def client_params
       params.require(:client).permit(:first_name, :last_name, :last_visit, :class_type, :studio_id)
     end
-end
+
+  end

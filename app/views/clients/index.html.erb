@@ -1,29 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Clients</h1>
-<%= form_for_filterrific @filterrific do |f| %>
-<div>
-    Last visit on/before
-    <%= f.text_field(:with_last_visit_lt, :data => {:provide => "datepicker"}, class: 'js-datepicker') %>
-  </div>
-  <div>
-   <%= link_to(
-     'Reset filters',
-     reset_filterrific_url,
-   ) %>
- </div>
- <%= render_filterrific_spinner %>
+
+<%= form_tag clients_path, :method => 'get', :id => "clients_search" do %>
+  <p>
+    <%= date_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
 <% end %>
 
 <%= render(
   partial: 'clients/list',
   locals: { clients: @clients }
 ) %>
-
+<%= will_paginate @clients %>
 <br>
 
 <%= link_to 'New Client', new_client_path %>
-
-<script type='text/javascript'>
-  $('.js-datepicker').datepicker();
-</script>

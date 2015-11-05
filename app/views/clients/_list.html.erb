@@ -1,8 +1,9 @@
 <div id="filterrific_results">
-
+<%= form_tag email_clients_path, method: :put do %>
 <table>
   <thead>
     <tr>
+      <th></th>
       <th>First name</th>
       <th>Last name</th>
       <th>Last visit</th>
@@ -15,6 +16,7 @@
   <tbody>
     <% @clients.each do |client| %>
       <tr>
+        <td><%= check_box_tag "client_ids[]", client.id %></td>
         <td><%= client.first_name %></td>
         <td><%= client.last_name %></td>
         <td><%= client.last_visit.strftime("%b %d %Y") %></td>
@@ -27,4 +29,6 @@
     <% end %>
   </tbody>
 </table>
+<%= submit_tag "Email checked" %>
+<% end %>
 </div>
