@@ -21,7 +21,7 @@
         <td><%= client.last_name %></td>
         <td><%= client.last_visit.strftime("%b %d %Y") %></td>
         <td><%= client.class_type %></td>
-        <td><%= client.email %></td>
+        <td><%= client.email_address %></td>
         <td><%= link_to 'Show', client %></td>
         <td><%= link_to 'Edit', edit_client_path(client) %></td>
         <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>

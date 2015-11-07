@@ -1,9 +1,10 @@
 <h1>New Email</h1>
+<%= form_tag submit_clients_path, method: :put do %>
 <ul>
   <% @clients.each do |client| %>
   <li>
     <%= hidden_field_tag "client_ids[]", client.id %>
-    <%= client.first_name %>
+    <%= client.first_name %>  <%= client.last_name %> —   <%= client.email_address %>
   </li>
   <% end %>
 </ul>
@@ -43,4 +44,5 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+<% end %>
 <% end %>

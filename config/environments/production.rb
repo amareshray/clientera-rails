@@ -48,6 +48,18 @@ Rails.application.configure do
   # when problems arise.
   config.log_level = :debug
 
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  :address => "smtp.mandrillapp.com",
+  :port => 587,
+  :domain => "clientera.com",
+  :authentication => "plain",
+  :enable_starttls_auto => true,
+  :user_name => "amareshray@gmail.com",
+  :password => "B4DUswDPxOYaiQuCSNgX_A"
+}
+
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
 

@@ -66,15 +66,16 @@ class ClientsController < ApplicationController
     @clients = Client.find(params[:client_ids])
     @email = Email.new
 
+
   end
 
   def submit
     @clients = Client.find(params[:client_ids])
-    @client = @email.create
+    email = Email.last
     @clients.each do |client|
-      @email.client_ids << client.id
+    ClientMailer.engagement_email(client, email).deliver
   end
-
+    redirect_to emails_url
     end
 
   private
@@ -85,7 +86,7 @@ class ClientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      params.require(:client).permit(:first_name, :last_name, :last_visit, :class_type, :studio_id)
+      params.require(:client).permit(:first_name, :last_name, :email_address, :last_visit, :class_type, :studio_id)
     end
 
   end
