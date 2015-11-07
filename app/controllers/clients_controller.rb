@@ -71,12 +71,14 @@ class ClientsController < ApplicationController
 
   def submit
     @clients = Client.find(params[:client_ids])
+    @email = Email.create(email_params)
     email = Email.last
     @clients.each do |client|
     ClientMailer.engagement_email(client, email).deliver
-  end
-    redirect_to emails_url
     end
+      redirect_to @email
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -88,5 +90,7 @@ class ClientsController < ApplicationController
     def client_params
       params.require(:client).permit(:first_name, :last_name, :email_address, :last_visit, :class_type, :studio_id)
     end
-
+    def email_params
+      params.require(:email).permit(:email_name, :subject, :from_name, :from_email, :body)
+    end
   end
