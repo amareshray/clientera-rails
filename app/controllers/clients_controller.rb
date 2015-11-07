@@ -72,6 +72,7 @@ class ClientsController < ApplicationController
   def submit
     @clients = Client.find(params[:client_ids])
     @email = Email.create(email_params)
+    @email.client_ids = params[:client_ids]
     email = Email.last
     @clients.each do |client|
     ClientMailer.engagement_email(client, email).deliver

@@ -1,13 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<ul>
-  <% @email.clients.each do |client| %>
-  <li>
-    <%= hidden_field_tag "client_ids[]", client.id %>
-    <%= @email.client.first_name %> <%= @email.client.last_name %> —   <%= @email.client.email_address %>
-  </li>
-  <% end %>
-</ul>
+
 <p>
   <strong>Email name:</strong>
   <%= @email.email_name %>
@@ -32,6 +25,15 @@
   <strong>Body:</strong>
   <%= @email.body %>
 </p>
+
+<ul>
+  <% @email.clients.each do |client| %>
+  <li>
+    <%= client.first_name %> <%= client.last_name %> —   <%= client.email_address %>
+  </li>
+  <% end %>
+</ul>
+
 
 <%= link_to 'Edit', edit_email_path(@email) %> |
 <%= link_to 'Back', emails_path %>
